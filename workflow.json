@@ -24,5 +24,16 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x7c5e5d453ef10c5362edcb69a0d67afda9ad35021f4c021066c5993f835f349d",
     "blockNumber": 265862,
     "timestamp": "2025-06-27T05:52:25.000Z"
+  },
+  "DailyReporter": {
+    "address": "0x2D33c8BE94eEDAD8bd0aA5bC1D851B3C54a09F68",
+    "logName": "DailyReporter",
+    "constructorArgs": [
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x829928fa7dbaf2bfead5ec602f6faef66ea71878870cfff7d914628c5095bf87",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x829928fa7dbaf2bfead5ec602f6faef66ea71878870cfff7d914628c5095bf87",
+    "blockNumber": 266488,
+    "timestamp": "2025-06-27T08:29:55.000Z"
   }
 }
