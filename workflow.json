@@ -60,5 +60,16 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x3234c62678ddc12f277b94478200b7d5135f586c0848697243195da5a5cd401c",
     "blockNumber": 267486,
     "timestamp": "2025-06-27T12:45:38.000Z"
+  },
+  "AIAgent": {
+    "address": "0xECA2d01AF18501DBbD07C87cE82568e96D98E861",
+    "logName": "AIAgent",
+    "constructorArgs": [
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x3de2a9965b235b466aac8e4ba993e0e468d95a62280df43fd9c4f36eda32e965",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x3de2a9965b235b466aac8e4ba993e0e468d95a62280df43fd9c4f36eda32e965",
+    "blockNumber": 268860,
+    "timestamp": "2025-06-27T18:31:00.000Z"
   }
 }
