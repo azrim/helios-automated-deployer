@@ -1,0 +1,14 @@
+{
+  "FeeCollector": {
+    "address": "0xfde83C900585c3cc7B2Be8B85A554153cC5f0E70",
+    "logName": "FeeCollector",
+    "constructorArgs": [
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d",
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x06bfab93ee3fdd2859cd402550cf72d5304d098cf1f6c52e05764a4117344e91",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x06bfab93ee3fdd2859cd402550cf72d5304d098cf1f6c52e05764a4117344e91",
+    "blockNumber": 265790,
+    "timestamp": "2025-06-27T05:34:18.000Z"
+  }
+}
