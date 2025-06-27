@@ -35,5 +35,19 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x829928fa7dbaf2bfead5ec602f6faef66ea71878870cfff7d914628c5095bf87",
     "blockNumber": 266488,
     "timestamp": "2025-06-27T08:29:55.000Z"
+  },
+  "Voidstone Token": {
+    "address": "0x3764128aAB28376591d7Fbcc62c6d6e37B22e8b9",
+    "logName": "RandomToken",
+    "constructorArgs": [
+      "Voidstone Token",
+      "VOI",
+      "41893649000000000000000000",
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x55410a7e8a9cfa6b8dfa236ffe9a09c0cc04e27cb374f9ec46f652c6c62b70c4",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x55410a7e8a9cfa6b8dfa236ffe9a09c0cc04e27cb374f9ec46f652c6c62b70c4",
+    "blockNumber": 266942,
+    "timestamp": "2025-06-27T10:24:10.000Z"
   }
 }
