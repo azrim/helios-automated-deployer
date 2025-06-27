@@ -71,5 +71,19 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x3de2a9965b235b466aac8e4ba993e0e468d95a62280df43fd9c4f36eda32e965",
     "blockNumber": 268860,
     "timestamp": "2025-06-27T18:31:00.000Z"
+  },
+  "Ember Token": {
+    "address": "0xCB083295e4ab10f76c47ff28715E04Ce07Fc3B08",
+    "logName": "RandomToken",
+    "constructorArgs": [
+      "Ember Token",
+      "EMB",
+      "305304303000000000000000000",
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x3005a6f7e1d23fecd4c47641ed35f274ee1b61f386b4d7687efa45562a1f063e",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x3005a6f7e1d23fecd4c47641ed35f274ee1b61f386b4d7687efa45562a1f063e",
+    "blockNumber": 269310,
+    "timestamp": "2025-06-27T20:24:16.000Z"
   }
 }
