@@ -1,7 +1,7 @@
 # Helios Automated Deployer & Interaction Suite
 
 ![Visitor Count](https://api.visitorbadge.io/api/VisitorHit?user=azrim&repo=helios-deployer)
-[![Scheduled Helios Deployment](https://github.com/azrim/helios-deployer/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/azrim/helios-deployer/actions/workflows/deploy.yml)
+[![Scheduled Helios Deployment](https://github.com/azrim/helios-automated-deployer/actions/workflows/deploy.yml/badge.svg)](https://github.com/azrim/helios-automated-deployer/actions/workflows/deploy.yml)
 
 This repository provides a powerful and flexible suite of tools for deploying and interacting with smart contracts on the **Helios Network**. It leverages a configuration-driven approach and custom Hardhat tasks to automate the deployment of multiple contracts, including ERC20 tokens, ERC721 NFTs, and contracts that integrate with Helios's native AI, Chronos (cron job), and Hyperion (oracle) precompiles.
 

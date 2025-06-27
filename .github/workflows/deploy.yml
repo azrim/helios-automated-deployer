@@ -7,7 +7,6 @@ on:
     # Runs the workflow every 2 hours on the default branch.
     - cron: '0 */2 * * *'
   
-  # Also allows manual runs from the Actions tab.
   workflow_dispatch:
 
 jobs:
@@ -20,7 +19,6 @@ jobs:
 
     steps:
       - name: Checkout repository
-        # This will check out the default branch (main).
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -38,11 +36,11 @@ jobs:
       - name: Run Scheduled Deployment Logic
         run: node scripts/run-scheduled-deployment.js
 
-      - name: Commit and Push deployment logs
-        # This action commits deployments.json back to the main branch.
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore(bot): Update deployment logs"
-          file_pattern: deployments.json
-          commit_user_name: GitHub Actions Bot
-          commit_user_email: actions@github.com
+      - name: Commit and Push workflow.json
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add workflow.json
+          # Check if there are changes to commit before committing
+          git diff-index --quiet HEAD || git commit -m "chore(bot): Update workflow deployment logs"
+          git push

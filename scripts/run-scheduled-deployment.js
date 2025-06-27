@@ -2,8 +2,8 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// This now correctly points to the main deployments log in the project root.
-const DEPLOYMENTS_LOG_PATH = path.join(__dirname, '../deployments.json');
+// The new, dedicated log file for our workflow.
+const WORKFLOW_LOG_PATH = path.join(__dirname, '../workflow.json');
 
 // --- Configuration ---
 const CHRONOS_CONTRACTS = [
@@ -29,11 +29,11 @@ function executeCommand(command) {
 }
 
 function getDeploymentsFromLast24Hours() {
-    if (!fs.existsSync(DEPLOYMENTS_LOG_PATH)) {
-        console.log(`Deployment log not found. Assuming 0 deployments.`);
+    if (!fs.existsSync(WORKFLOW_LOG_PATH)) {
+        console.log(`Workflow log not found. Starting fresh.`);
         return [];
     }
-    const deployments = JSON.parse(fs.readFileSync(DEPLOYMENTS_LOG_PATH, 'utf-8'));
+    const deployments = JSON.parse(fs.readFileSync(WORKFLOW_LOG_PATH, 'utf-8'));
     const now = new Date();
     const twentyFourHoursAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
 
@@ -46,7 +46,7 @@ function getDeploymentsFromLast24Hours() {
 
 function getNextContractToDeploy() {
     const recentDeployments = getDeploymentsFromLast24Hours();
-    console.log(`Found ${recentDeployments.length} deployments in the last 24 hours.`);
+    console.log(`Found ${recentDeployments.length} deployments in the last 24 hours from workflow.json.`);
 
     for (const contract of CHRONOS_CONTRACTS) {
         const count = recentDeployments.filter(d => d.logName === contract.logName).length;
@@ -62,6 +62,28 @@ function getNextContractToDeploy() {
     return randomLogName;
 }
 
+// ** NEW FUNCTION **
+// This function reads the temporary deployments.json and merges it into our workflow.json
+function updateWorkflowLog() {
+    const localLogPath = path.join(__dirname, '../deployments.json');
+    if (!fs.existsSync(localLogPath)) return;
+
+    const localLog = JSON.parse(fs.readFileSync(localLogPath, 'utf-8'));
+
+    let workflowLog = {};
+    if (fs.existsSync(WORKFLOW_LOG_PATH)) {
+        workflowLog = JSON.parse(fs.readFileSync(WORKFLOW_LOG_PATH, 'utf-8'));
+    }
+    
+    // Merge the new deployment into the workflow log
+    Object.assign(workflowLog, localLog);
+
+    // Save the updated workflow log
+    const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
+    fs.writeFileSync(WORKFLOW_LOG_PATH, JSON.stringify(workflowLog, replacer, 2));
+    console.log(`📝 Saved deployment data to workflow.json`);
+}
+
 async function main() {
     try {
         const logNameToDeploy = getNextContractToDeploy();
@@ -70,8 +92,13 @@ async function main() {
             return;
         }
 
+        // The hardhat task will create/update the normal 'deployments.json'
         const command = `npx hardhat deploy --log-name ${logNameToDeploy} --network heliosTestnet`;
         await executeCommand(command);
+        
+        // We then read that file and update our persistent workflow.json
+        updateWorkflowLog();
+
         console.log(`\n✅ Successfully completed deployment for ${logNameToDeploy}.`);
 
     } catch (error) {
