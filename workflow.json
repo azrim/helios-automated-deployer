@@ -49,5 +49,16 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x55410a7e8a9cfa6b8dfa236ffe9a09c0cc04e27cb374f9ec46f652c6c62b70c4",
     "blockNumber": 266942,
     "timestamp": "2025-06-27T10:24:10.000Z"
+  },
+  "HyperionQuery": {
+    "address": "0x1DAA9da7C221F2553768B77f3BD8AF7504f1f421",
+    "logName": "HyperionQuery",
+    "constructorArgs": [
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x3234c62678ddc12f277b94478200b7d5135f586c0848697243195da5a5cd401c",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x3234c62678ddc12f277b94478200b7d5135f586c0848697243195da5a5cd401c",
+    "blockNumber": 267486,
+    "timestamp": "2025-06-27T12:45:38.000Z"
   }
 }
