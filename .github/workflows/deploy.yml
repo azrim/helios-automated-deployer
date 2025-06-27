@@ -4,7 +4,10 @@ name: Scheduled Helios Deployment
 
 on:
   schedule:
+    # Runs the workflow every 2 hours on the default branch.
     - cron: '0 */2 * * *'
+  
+  # Also allows manual runs from the Actions tab.
   workflow_dispatch:
 
 jobs:
@@ -16,10 +19,9 @@ jobs:
       RPC_URL: ${{ secrets.RPC_URL }}
 
     steps:
-      - name: Checkout 'workflow' branch
+      - name: Checkout repository
+        # This will check out the default branch (main).
         uses: actions/checkout@v4
-        with:
-          ref: 'workflow'
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -37,8 +39,10 @@ jobs:
         run: node scripts/run-scheduled-deployment.js
 
       - name: Commit and Push deployment logs
+        # This action commits deployments.json back to the main branch.
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore(bot): Update deployment logs"
+          file_pattern: deployments.json
           commit_user_name: GitHub Actions Bot
           commit_user_email: actions@github.com

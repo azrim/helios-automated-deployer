@@ -1,15 +1,15 @@
 const { exec } = require('child_process');
-const fs = require('fs'); // Correctly import the 'fs' module
+const fs = require('fs');
 const path = require('path');
 
+// This now correctly points to the main deployments log in the project root.
+const DEPLOYMENTS_LOG_PATH = path.join(__dirname, '../deployments.json');
+
 // --- Configuration ---
-const TOTAL_RUNS_PER_DAY = 12;
 const CHRONOS_CONTRACTS = [
     { logName: 'FeeCollector', requiredCount: 2 },
     { logName: 'DailyReporter', requiredCount: 2 }
 ];
-
-// All available contracts for random deployment
 const ALL_CONTRACT_LOG_NAMES = [
     'RandomToken', 'RandomNFT', 'AIAgent', 'HyperionQuery', 'Heartbeat',
     'FeeCollector', 'DailyReporter' 
@@ -19,26 +19,21 @@ function executeCommand(command) {
     return new Promise((resolve, reject) => {
         console.log(`\n> Executing: ${command}\n`);
         const childProcess = exec(command);
-
         childProcess.stdout.pipe(process.stdout);
         childProcess.stderr.pipe(process.stderr);
-
         childProcess.on('close', (code) => {
-            if (code !== 0) {
-                reject(new Error(`Command failed with exit code ${code}`));
-            } else {
-                resolve();
-            }
+            if (code !== 0) reject(new Error(`Command failed with exit code ${code}`));
+            else resolve();
         });
     });
 }
 
 function getDeploymentsFromLast24Hours() {
-    const deploymentsPath = path.join(__dirname, '../deployments.json');
-    if (!fs.existsSync(deploymentsPath)) {
+    if (!fs.existsSync(DEPLOYMENTS_LOG_PATH)) {
+        console.log(`Deployment log not found. Assuming 0 deployments.`);
         return [];
     }
-    const deployments = JSON.parse(fs.readFileSync(deploymentsPath, 'utf-8'));
+    const deployments = JSON.parse(fs.readFileSync(DEPLOYMENTS_LOG_PATH, 'utf-8'));
     const now = new Date();
     const twentyFourHoursAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
 
@@ -53,7 +48,6 @@ function getNextContractToDeploy() {
     const recentDeployments = getDeploymentsFromLast24Hours();
     console.log(`Found ${recentDeployments.length} deployments in the last 24 hours.`);
 
-    // 1. Check if we need to deploy a mandatory Chronos contract
     for (const contract of CHRONOS_CONTRACTS) {
         const count = recentDeployments.filter(d => d.logName === contract.logName).length;
         console.log(`   - ${contract.logName} has been deployed ${count} times.`);
@@ -63,7 +57,6 @@ function getNextContractToDeploy() {
         }
     }
 
-    // 2. If all mandatory deployments are done, pick a random contract
     const randomLogName = ALL_CONTRACT_LOG_NAMES[Math.floor(Math.random() * ALL_CONTRACT_LOG_NAMES.length)];
     console.log(`   -> Decision: Deploying random contract: ${randomLogName}`);
     return randomLogName;
