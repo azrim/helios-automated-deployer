@@ -2,7 +2,6 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// The new, dedicated log file for our workflow.
 const WORKFLOW_LOG_PATH = path.join(__dirname, '../workflow.json');
 
 // --- Configuration ---
@@ -12,8 +11,44 @@ const CHRONOS_CONTRACTS = [
 ];
 const ALL_CONTRACT_LOG_NAMES = [
     'RandomToken', 'RandomNFT', 'AIAgent', 'HyperionQuery', 'Heartbeat',
-    'FeeCollector', 'DailyReporter' 
+    'FeeCollector', 'DailyReporter'
 ];
+const LOG_RETENTION_HOURS = 48; // Keep 48 hours of history
+
+// ** NEW FUNCTION **
+// This function cleans up old records from the workflow.json file.
+function cleanupOldDeployments() {
+    if (!fs.existsSync(WORKFLOW_LOG_PATH)) {
+        return; // Nothing to clean
+    }
+    console.log(`\n🧹 Cleaning deployment logs older than ${LOG_RETENTION_HOURS} hours...`);
+    
+    const deployments = JSON.parse(fs.readFileSync(WORKFLOW_LOG_PATH, 'utf-8'));
+    const now = new Date();
+    const retentionPeriod = new Date(now.getTime() - (LOG_RETENTION_HOURS * 60 * 60 * 1000));
+    
+    const recentDeployments = {};
+    let cleanedCount = 0;
+
+    for (const key in deployments) {
+        const dep = deployments[key];
+        if (dep.timestamp && new Date(dep.timestamp) > retentionPeriod) {
+            recentDeployments[key] = dep;
+        } else {
+            cleanedCount++;
+        }
+    }
+
+    const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
+    fs.writeFileSync(WORKFLOW_LOG_PATH, JSON.stringify(recentDeployments, replacer, 2));
+
+    if (cleanedCount > 0) {
+        console.log(`   -> Removed ${cleanedCount} old deployment records.`);
+    } else {
+        console.log(`   -> No old records to remove.`);
+    }
+}
+
 
 function executeCommand(command) {
     return new Promise((resolve, reject) => {
@@ -46,7 +81,7 @@ function getDeploymentsFromLast24Hours() {
 
 function getNextContractToDeploy() {
     const recentDeployments = getDeploymentsFromLast24Hours();
-    console.log(`Found ${recentDeployments.length} deployments in the last 24 hours from workflow.json.`);
+    console.log(`\nFound ${recentDeployments.length} deployments in the last 24 hours from workflow.json.`);
 
     for (const contract of CHRONOS_CONTRACTS) {
         const count = recentDeployments.filter(d => d.logName === contract.logName).length;
@@ -62,8 +97,6 @@ function getNextContractToDeploy() {
     return randomLogName;
 }
 
-// ** NEW FUNCTION **
-// This function reads the temporary deployments.json and merges it into our workflow.json
 function updateWorkflowLog() {
     const localLogPath = path.join(__dirname, '../deployments.json');
     if (!fs.existsSync(localLogPath)) return;
@@ -75,10 +108,8 @@ function updateWorkflowLog() {
         workflowLog = JSON.parse(fs.readFileSync(WORKFLOW_LOG_PATH, 'utf-8'));
     }
     
-    // Merge the new deployment into the workflow log
     Object.assign(workflowLog, localLog);
 
-    // Save the updated workflow log
     const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
     fs.writeFileSync(WORKFLOW_LOG_PATH, JSON.stringify(workflowLog, replacer, 2));
     console.log(`📝 Saved deployment data to workflow.json`);
@@ -86,17 +117,18 @@ function updateWorkflowLog() {
 
 async function main() {
     try {
+        // ** Run the cleanup function at the start of every job **
+        cleanupOldDeployments();
+
         const logNameToDeploy = getNextContractToDeploy();
         if (!logNameToDeploy) {
             console.log("No contract to deploy at this time.");
             return;
         }
 
-        // The hardhat task will create/update the normal 'deployments.json'
         const command = `npx hardhat deploy --log-name ${logNameToDeploy} --network heliosTestnet`;
         await executeCommand(command);
         
-        // We then read that file and update our persistent workflow.json
         updateWorkflowLog();
 
         console.log(`\n✅ Successfully completed deployment for ${logNameToDeploy}.`);
