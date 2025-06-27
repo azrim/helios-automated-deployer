@@ -1,15 +1,15 @@
 {
   "FeeCollector": {
-    "address": "0xE36dE77026C516073078D2DDB987f7F517cca86D",
+    "address": "0x0Fbe7061358ea1782B517F224C47b42e783C73AE",
     "logName": "FeeCollector",
     "constructorArgs": [
       "0xe0becc917ec26961bf40ad87650ec0878daf950d",
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0x04865340318eaabe433deba1d1d575950ed8a352bf0ae93fa7feb4329e83943d",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x04865340318eaabe433deba1d1d575950ed8a352bf0ae93fa7feb4329e83943d",
-    "blockNumber": 265820,
-    "timestamp": "2025-06-27T05:41:51.000Z"
+    "tx": "0x0ac88bfb3a22790b2ab7d0637872ab4fd7118ca3b2a8edfd1973070d701f7007",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x0ac88bfb3a22790b2ab7d0637872ab4fd7118ca3b2a8edfd1973070d701f7007",
+    "blockNumber": 269781,
+    "timestamp": "2025-06-27T22:22:48.000Z"
   },
   "Rune Token": {
     "address": "0xD3B7B0be50F5632Ec989756a5989F7DC17EE5d00",
