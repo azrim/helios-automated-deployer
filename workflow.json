@@ -10,5 +10,19 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x04865340318eaabe433deba1d1d575950ed8a352bf0ae93fa7feb4329e83943d",
     "blockNumber": 265820,
     "timestamp": "2025-06-27T05:41:51.000Z"
+  },
+  "Rune Token": {
+    "address": "0xD3B7B0be50F5632Ec989756a5989F7DC17EE5d00",
+    "logName": "RandomToken",
+    "constructorArgs": [
+      "Rune Token",
+      "RUN",
+      "428707107000000000000000000",
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x7c5e5d453ef10c5362edcb69a0d67afda9ad35021f4c021066c5993f835f349d",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x7c5e5d453ef10c5362edcb69a0d67afda9ad35021f4c021066c5993f835f349d",
+    "blockNumber": 265862,
+    "timestamp": "2025-06-27T05:52:25.000Z"
   }
 }
