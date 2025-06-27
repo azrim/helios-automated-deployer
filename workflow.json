@@ -1,14 +1,14 @@
 {
   "FeeCollector": {
-    "address": "0xfde83C900585c3cc7B2Be8B85A554153cC5f0E70",
+    "address": "0xE36dE77026C516073078D2DDB987f7F517cca86D",
     "logName": "FeeCollector",
     "constructorArgs": [
       "0xe0becc917ec26961bf40ad87650ec0878daf950d",
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0x06bfab93ee3fdd2859cd402550cf72d5304d098cf1f6c52e05764a4117344e91",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x06bfab93ee3fdd2859cd402550cf72d5304d098cf1f6c52e05764a4117344e91",
-    "blockNumber": 265790,
-    "timestamp": "2025-06-27T05:34:18.000Z"
+    "tx": "0x04865340318eaabe433deba1d1d575950ed8a352bf0ae93fa7feb4329e83943d",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x04865340318eaabe433deba1d1d575950ed8a352bf0ae93fa7feb4329e83943d",
+    "blockNumber": 265820,
+    "timestamp": "2025-06-27T05:41:51.000Z"
   }
 }
