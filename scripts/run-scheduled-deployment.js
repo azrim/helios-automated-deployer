@@ -3,24 +3,22 @@ const fs = require('fs');
 const path = require('path');
 
 const WORKFLOW_LOG_PATH = path.join(__dirname, '../workflow.json');
+const CONFIG_PATH = path.join(__dirname, '../deployment-config-template.json');
 
 // --- Configuration ---
-const CHRONOS_CONTRACTS = [
-    { logName: 'FeeCollector', requiredCount: 2 },
-    { logName: 'DailyReporter', requiredCount: 2 }
-];
-const ALL_CONTRACT_LOG_NAMES = [
-    'RandomToken', 'RandomNFT', 'AIAgent', 'HyperionQuery', 'Heartbeat',
-    'FeeCollector', 'DailyReporter'
-];
-const LOG_RETENTION_HOURS = 48; // Keep 48 hours of history
+// Read the config to dynamically find which contracts are 'chronos' type
+const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
+const CHRONOS_ENABLED_CONTRACTS = config.contracts
+    .filter(c => c.interactions && c.interactions.some(i => i.type === 'chronos'))
+    .map(c => c.logName);
 
-// ** NEW FUNCTION **
-// This function cleans up old records from the workflow.json file.
+const ALL_CONTRACT_LOG_NAMES = config.contracts.map(c => c.logName);
+
+const LOG_RETENTION_HOURS = 48; // Keep 48 hours of history
+const CHRONOS_MANDATORY_INTERVAL_HOURS = 12; // Deploy a chronos task if the last one was > 12 hours ago
+
 function cleanupOldDeployments() {
-    if (!fs.existsSync(WORKFLOW_LOG_PATH)) {
-        return; // Nothing to clean
-    }
+    if (!fs.existsSync(WORKFLOW_LOG_PATH)) return;
     console.log(`\n🧹 Cleaning deployment logs older than ${LOG_RETENTION_HOURS} hours...`);
     
     const deployments = JSON.parse(fs.readFileSync(WORKFLOW_LOG_PATH, 'utf-8'));
@@ -49,7 +47,6 @@ function cleanupOldDeployments() {
     }
 }
 
-
 function executeCommand(command) {
     return new Promise((resolve, reject) => {
         console.log(`\n> Executing: ${command}\n`);
@@ -63,37 +60,48 @@ function executeCommand(command) {
     });
 }
 
-function getDeploymentsFromLast24Hours() {
+function getFullDeploymentLog() {
     if (!fs.existsSync(WORKFLOW_LOG_PATH)) {
         console.log(`Workflow log not found. Starting fresh.`);
-        return [];
+        return {};
     }
-    const deployments = JSON.parse(fs.readFileSync(WORKFLOW_LOG_PATH, 'utf-8'));
-    const now = new Date();
-    const twentyFourHoursAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
-
-    return Object.values(deployments).filter(dep => {
-        if (!dep.timestamp) return false;
-        const deploymentDate = new Date(dep.timestamp);
-        return deploymentDate > twentyFourHoursAgo;
-    });
+    return JSON.parse(fs.readFileSync(WORKFLOW_LOG_PATH, 'utf-8'));
 }
 
 function getNextContractToDeploy() {
-    const recentDeployments = getDeploymentsFromLast24Hours();
-    console.log(`\nFound ${recentDeployments.length} deployments in the last 24 hours from workflow.json.`);
+    const allDeployments = getFullDeploymentLog();
+    const now = new Date();
+    const twelveHoursAgo = new Date(now.getTime() - (CHRONOS_MANDATORY_INTERVAL_HOURS * 60 * 60 * 1000));
 
-    for (const contract of CHRONOS_CONTRACTS) {
-        const count = recentDeployments.filter(d => d.logName === contract.logName).length;
-        console.log(`   - ${contract.logName} has been deployed ${count} times.`);
-        if (count < contract.requiredCount) {
-            console.log(`   -> Decision: Deploying mandatory contract: ${contract.logName}`);
-            return contract.logName;
+    // Find the timestamp of the most recent Chronos deployment
+    let lastChronosDeploymentTime = new Date(0); // Initialize to a very old date
+    for (const key in allDeployments) {
+        const dep = allDeployments[key];
+        if (dep.timestamp && CHRONOS_ENABLED_CONTRACTS.includes(dep.logName)) {
+            const depTime = new Date(dep.timestamp);
+            if (depTime > lastChronosDeploymentTime) {
+                lastChronosDeploymentTime = depTime;
+            }
         }
     }
+    
+    console.log(`\nLast Chronos-type deployment was at: ${lastChronosDeploymentTime.toLocaleString()}`);
+    console.log(`12 hours ago was: ${twelveHoursAgo.toLocaleString()}`);
 
+    // ** NEW LOGIC **
+    // 1. Check if it's been more than 12 hours since the last Chronos deployment
+    if (lastChronosDeploymentTime < twelveHoursAgo) {
+        console.log(`   -> It has been more than 12 hours. A Chronos deployment is mandatory.`);
+        // Pick a random contract from the list of Chronos-enabled contracts
+        const chronosContractToDeploy = CHRONOS_ENABLED_CONTRACTS[Math.floor(Math.random() * CHRONOS_ENABLED_CONTRACTS.length)];
+        console.log(`   -> Decision: Deploying mandatory Chronos contract: ${chronosContractToDeploy}`);
+        return chronosContractToDeploy;
+    }
+
+    // 2. If the Chronos requirement is met, deploy a random contract from the full list
+    console.log(`   -> Chronos requirement is met. Deploying a random contract.`);
     const randomLogName = ALL_CONTRACT_LOG_NAMES[Math.floor(Math.random() * ALL_CONTRACT_LOG_NAMES.length)];
-    console.log(`   -> Decision: Deploying random contract: ${randomLogName}`);
+    console.log(`   -> Decision: ${randomLogName}`);
     return randomLogName;
 }
 
@@ -102,11 +110,7 @@ function updateWorkflowLog() {
     if (!fs.existsSync(localLogPath)) return;
 
     const localLog = JSON.parse(fs.readFileSync(localLogPath, 'utf-8'));
-
-    let workflowLog = {};
-    if (fs.existsSync(WORKFLOW_LOG_PATH)) {
-        workflowLog = JSON.parse(fs.readFileSync(WORKFLOW_LOG_PATH, 'utf-8'));
-    }
+    let workflowLog = getFullDeploymentLog();
     
     Object.assign(workflowLog, localLog);
 
@@ -117,7 +121,6 @@ function updateWorkflowLog() {
 
 async function main() {
     try {
-        // ** Run the cleanup function at the start of every job **
         cleanupOldDeployments();
 
         const logNameToDeploy = getNextContractToDeploy();
