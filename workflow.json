@@ -101,15 +101,15 @@
     "timestamp": "2025-06-28T14:18:26.000Z"
   },
   "Heartbeat": {
-    "address": "0x79deedb32cB3cE58594f421ff51b50daBA31634D",
+    "address": "0xf64e4D6e473085605DD2FA684c118f4B31637987",
     "logName": "Heartbeat",
     "constructorArgs": [
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0x658befb74d31f7199d48b3d00b2e0ae457738c4510dbebe687bc6334ce10f52f",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x658befb74d31f7199d48b3d00b2e0ae457738c4510dbebe687bc6334ce10f52f",
-    "blockNumber": 271716,
-    "timestamp": "2025-06-28T06:29:53.000Z"
+    "tx": "0xb2030012cb8e144618aec23a7c77aa9029d6fc80ff5154472cd8f2aaf0e55a5d",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0xb2030012cb8e144618aec23a7c77aa9029d6fc80ff5154472cd8f2aaf0e55a5d",
+    "blockNumber": 275019,
+    "timestamp": "2025-06-28T20:22:30.000Z"
   },
   "Dynasty of Elysium": {
     "address": "0x385348575E9dc4520bA9EF13df47c18A93206885",
