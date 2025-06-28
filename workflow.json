@@ -122,5 +122,19 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0xd51bb2b7fa2a5f61825d78ca9bf78c0b9aaa4121c046f345ac75ccbebe5f9101",
     "blockNumber": 272181,
     "timestamp": "2025-06-28T08:27:03.000Z"
+  },
+  "Solaris Token": {
+    "address": "0x03e6133fdD2581A5B1Bf8c6AA13B834237E5C3B6",
+    "logName": "RandomToken",
+    "constructorArgs": [
+      "Solaris Token",
+      "SOL",
+      "150826283000000000000000000",
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x2fe7b124d8f5de8a46ffdfdebb4bc41d9f0118f9e05faeeb3492e07eb4d2dc93",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x2fe7b124d8f5de8a46ffdfdebb4bc41d9f0118f9e05faeeb3492e07eb4d2dc93",
+    "blockNumber": 272634,
+    "timestamp": "2025-06-28T10:21:22.000Z"
   }
 }
