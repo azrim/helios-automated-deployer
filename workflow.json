@@ -62,15 +62,15 @@
     "timestamp": "2025-06-28T03:15:21.000Z"
   },
   "AIAgent": {
-    "address": "0xECA2d01AF18501DBbD07C87cE82568e96D98E861",
+    "address": "0x037962A13f20af3258B6643D3090be31a8c4FB9f",
     "logName": "AIAgent",
     "constructorArgs": [
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0x3de2a9965b235b466aac8e4ba993e0e468d95a62280df43fd9c4f36eda32e965",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x3de2a9965b235b466aac8e4ba993e0e468d95a62280df43fd9c4f36eda32e965",
-    "blockNumber": 268860,
-    "timestamp": "2025-06-27T18:31:00.000Z"
+    "tx": "0x3b003dd35362cae7fcd8d588f85385f7bb16dea13165793c6f60a5ea7f4eb41a",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x3b003dd35362cae7fcd8d588f85385f7bb16dea13165793c6f60a5ea7f4eb41a",
+    "blockNumber": 274079,
+    "timestamp": "2025-06-28T16:25:41.000Z"
   },
   "Ember Token": {
     "address": "0xCB083295e4ab10f76c47ff28715E04Ce07Fc3B08",
