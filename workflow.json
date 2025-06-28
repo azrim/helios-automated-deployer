@@ -136,5 +136,17 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x2fe7b124d8f5de8a46ffdfdebb4bc41d9f0118f9e05faeeb3492e07eb4d2dc93",
     "blockNumber": 272634,
     "timestamp": "2025-06-28T10:21:22.000Z"
+  },
+  "Chronicles of the Rising Sun": {
+    "address": "0x6a56853939A42D00E3Bd08A19ef6f3629b33Dfd4",
+    "logName": "RandomNFT",
+    "constructorArgs": [
+      "Chronicles of the Rising Sun",
+      "CHRO"
+    ],
+    "tx": "0x68adb172d085b38e2e115160d681e66040a9447fde4dd8021505e0d916ac4b03",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x68adb172d085b38e2e115160d681e66040a9447fde4dd8021505e0d916ac4b03",
+    "blockNumber": 273188,
+    "timestamp": "2025-06-28T12:40:58.000Z"
   }
 }
