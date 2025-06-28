@@ -148,5 +148,17 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x68adb172d085b38e2e115160d681e66040a9447fde4dd8021505e0d916ac4b03",
     "blockNumber": 273188,
     "timestamp": "2025-06-28T12:40:58.000Z"
+  },
+  "Spirits of Light": {
+    "address": "0xB31Bb4c31e7bb7781c651EFFb687e8Cc114cE12e",
+    "logName": "RandomNFT",
+    "constructorArgs": [
+      "Spirits of Light",
+      "SPIR"
+    ],
+    "tx": "0xc814fb73bcfabee22d846f8e654a77a26ddbb41d1bbee43d2258f71bbc9ebe85",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0xc814fb73bcfabee22d846f8e654a77a26ddbb41d1bbee43d2258f71bbc9ebe85",
+    "blockNumber": 274567,
+    "timestamp": "2025-06-28T18:28:41.000Z"
   }
 }
