@@ -110,5 +110,17 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0x658befb74d31f7199d48b3d00b2e0ae457738c4510dbebe687bc6334ce10f52f",
     "blockNumber": 271716,
     "timestamp": "2025-06-28T06:29:53.000Z"
+  },
+  "Dynasty of Elysium": {
+    "address": "0x385348575E9dc4520bA9EF13df47c18A93206885",
+    "logName": "RandomNFT",
+    "constructorArgs": [
+      "Dynasty of Elysium",
+      "DYNA"
+    ],
+    "tx": "0xd51bb2b7fa2a5f61825d78ca9bf78c0b9aaa4121c046f345ac75ccbebe5f9101",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0xd51bb2b7fa2a5f61825d78ca9bf78c0b9aaa4121c046f345ac75ccbebe5f9101",
+    "blockNumber": 272181,
+    "timestamp": "2025-06-28T08:27:03.000Z"
   }
 }
