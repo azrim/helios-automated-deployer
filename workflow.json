@@ -87,18 +87,18 @@
     "timestamp": "2025-06-27T20:24:16.000Z"
   },
   "Warp Token": {
-    "address": "0xAadd58b0E2E38c3187b439aEFc20201917af288E",
+    "address": "0x5aB0fdA2751Ea35638F5b4d9CB6526a6fF6745eA",
     "logName": "RandomToken",
     "constructorArgs": [
       "Warp Token",
       "WAR",
-      "613682595000000000000000000",
+      "142018962000000000000000000",
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0x2df55cc56dfeb343653556b0b80fd7e581b15f62f8cf91cf3a4d8847524a22cd",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x2df55cc56dfeb343653556b0b80fd7e581b15f62f8cf91cf3a4d8847524a22cd",
-    "blockNumber": 270597,
-    "timestamp": "2025-06-28T01:48:19.000Z"
+    "tx": "0xc9b9ea965173c7a39a7b1822bc706828919a5de268f7973d82bd0ae5e0d5689c",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0xc9b9ea965173c7a39a7b1822bc706828919a5de268f7973d82bd0ae5e0d5689c",
+    "blockNumber": 273574,
+    "timestamp": "2025-06-28T14:18:26.000Z"
   },
   "Heartbeat": {
     "address": "0x79deedb32cB3cE58594f421ff51b50daBA31634D",
