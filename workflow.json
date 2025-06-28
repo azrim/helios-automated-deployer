@@ -51,15 +51,15 @@
     "timestamp": "2025-06-27T10:24:10.000Z"
   },
   "HyperionQuery": {
-    "address": "0x1DAA9da7C221F2553768B77f3BD8AF7504f1f421",
+    "address": "0x458ff8F95724A99924A3c444D2b1529172e9dd9e",
     "logName": "HyperionQuery",
     "constructorArgs": [
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0x3234c62678ddc12f277b94478200b7d5135f586c0848697243195da5a5cd401c",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x3234c62678ddc12f277b94478200b7d5135f586c0848697243195da5a5cd401c",
-    "blockNumber": 267486,
-    "timestamp": "2025-06-27T12:45:38.000Z"
+    "tx": "0x3ebb024a2578726fce54e4c3d43b6e6f95d0e897f0d2eb68c0eed31011726e9f",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x3ebb024a2578726fce54e4c3d43b6e6f95d0e897f0d2eb68c0eed31011726e9f",
+    "blockNumber": 270943,
+    "timestamp": "2025-06-28T03:15:21.000Z"
   },
   "AIAgent": {
     "address": "0xECA2d01AF18501DBbD07C87cE82568e96D98E861",
