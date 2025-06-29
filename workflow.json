@@ -11,20 +11,6 @@
     "blockNumber": 271232,
     "timestamp": "2025-06-28T04:28:01.000Z"
   },
-  "Rune Token": {
-    "address": "0xD3B7B0be50F5632Ec989756a5989F7DC17EE5d00",
-    "logName": "RandomToken",
-    "constructorArgs": [
-      "Rune Token",
-      "RUN",
-      "428707107000000000000000000",
-      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
-    ],
-    "tx": "0x7c5e5d453ef10c5362edcb69a0d67afda9ad35021f4c021066c5993f835f349d",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x7c5e5d453ef10c5362edcb69a0d67afda9ad35021f4c021066c5993f835f349d",
-    "blockNumber": 265862,
-    "timestamp": "2025-06-27T05:52:25.000Z"
-  },
   "DailyReporter": {
     "address": "0xf4bAEa551784CA1bFd1Ac229C11c57f86B95EE46",
     "logName": "DailyReporter",
@@ -160,5 +146,17 @@
     "explorer": "https://explorer.helioschainlabs.org/tx/0xc814fb73bcfabee22d846f8e654a77a26ddbb41d1bbee43d2258f71bbc9ebe85",
     "blockNumber": 274567,
     "timestamp": "2025-06-28T18:28:41.000Z"
+  },
+  "Echoes of Elysium": {
+    "address": "0x5E231a4B84Af6774D9e5A6cD3A94b8edEf8579AC",
+    "logName": "RandomNFT",
+    "constructorArgs": [
+      "Echoes of Elysium",
+      "ECHO"
+    ],
+    "tx": "0x1d9d923d5aab1222cefcb8f2137697fc98664deacec09e9a67b9460b76ca062f",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x1d9d923d5aab1222cefcb8f2137697fc98664deacec09e9a67b9460b76ca062f",
+    "blockNumber": 277427,
+    "timestamp": "2025-06-29T06:31:06.000Z"
   }
 }
