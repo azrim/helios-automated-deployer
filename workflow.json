@@ -1,15 +1,15 @@
 {
   "FeeCollector": {
-    "address": "0xc719749996B98FB057972ab19eBB06418A88FD32",
+    "address": "0x56be9701cc10eCD5aDAC0bB0E79FE09eec1c0481",
     "logName": "FeeCollector",
     "constructorArgs": [
       "0xe0becc917ec26961bf40ad87650ec0878daf950d",
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0x7e463414bb657b3edfaab2673b9ce5538174f20799242a328868fb11aa94dce3",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x7e463414bb657b3edfaab2673b9ce5538174f20799242a328868fb11aa94dce3",
-    "blockNumber": 271232,
-    "timestamp": "2025-06-28T04:28:01.000Z"
+    "tx": "0x7b954f2b05571ebbad81ca1905dfea1e390701740360618dbddf25c85db81ba2",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x7b954f2b05571ebbad81ca1905dfea1e390701740360618dbddf25c85db81ba2",
+    "blockNumber": 280700,
+    "timestamp": "2025-06-29T20:23:03.000Z"
   },
   "DailyReporter": {
     "address": "0x4f3FBAE1ee0C93A2DE6fa2B829b7cb1b621fa1f3",
