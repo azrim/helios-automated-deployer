@@ -26,15 +26,15 @@
     "timestamp": "2025-06-27T05:52:25.000Z"
   },
   "DailyReporter": {
-    "address": "0x2D33c8BE94eEDAD8bd0aA5bC1D851B3C54a09F68",
+    "address": "0xf4bAEa551784CA1bFd1Ac229C11c57f86B95EE46",
     "logName": "DailyReporter",
     "constructorArgs": [
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0x829928fa7dbaf2bfead5ec602f6faef66ea71878870cfff7d914628c5095bf87",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x829928fa7dbaf2bfead5ec602f6faef66ea71878870cfff7d914628c5095bf87",
-    "blockNumber": 266488,
-    "timestamp": "2025-06-27T08:29:55.000Z"
+    "tx": "0xa50568b820893605e56772eb397acf63592c90b621beed5aca143259da77552f",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0xa50568b820893605e56772eb397acf63592c90b621beed5aca143259da77552f",
+    "blockNumber": 276979,
+    "timestamp": "2025-06-29T04:37:45.000Z"
   },
   "Voidstone Token": {
     "address": "0x3764128aAB28376591d7Fbcc62c6d6e37B22e8b9",
