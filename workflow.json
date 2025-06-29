@@ -12,29 +12,15 @@
     "timestamp": "2025-06-28T04:28:01.000Z"
   },
   "DailyReporter": {
-    "address": "0xf4bAEa551784CA1bFd1Ac229C11c57f86B95EE46",
+    "address": "0x4f3FBAE1ee0C93A2DE6fa2B829b7cb1b621fa1f3",
     "logName": "DailyReporter",
     "constructorArgs": [
       "0xe0becc917ec26961bf40ad87650ec0878daf950d"
     ],
-    "tx": "0xa50568b820893605e56772eb397acf63592c90b621beed5aca143259da77552f",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0xa50568b820893605e56772eb397acf63592c90b621beed5aca143259da77552f",
-    "blockNumber": 276979,
-    "timestamp": "2025-06-29T04:37:45.000Z"
-  },
-  "Voidstone Token": {
-    "address": "0x3764128aAB28376591d7Fbcc62c6d6e37B22e8b9",
-    "logName": "RandomToken",
-    "constructorArgs": [
-      "Voidstone Token",
-      "VOI",
-      "41893649000000000000000000",
-      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
-    ],
-    "tx": "0x55410a7e8a9cfa6b8dfa236ffe9a09c0cc04e27cb374f9ec46f652c6c62b70c4",
-    "explorer": "https://explorer.helioschainlabs.org/tx/0x55410a7e8a9cfa6b8dfa236ffe9a09c0cc04e27cb374f9ec46f652c6c62b70c4",
-    "blockNumber": 266942,
-    "timestamp": "2025-06-27T10:24:10.000Z"
+    "tx": "0xac9d6a907a61a6448613b6a09424c64aaa67617687c4e613188c98fbdf393eb9",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0xac9d6a907a61a6448613b6a09424c64aaa67617687c4e613188c98fbdf393eb9",
+    "blockNumber": 280248,
+    "timestamp": "2025-06-29T18:29:04.000Z"
   },
   "HyperionQuery": {
     "address": "0x458ff8F95724A99924A3c444D2b1529172e9dd9e",
