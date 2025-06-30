@@ -25,47 +25,51 @@ async function main() {
         console.error("❌ deployments.json not found! Please deploy a contract first.");
         return;
     }
+
     const deployments = JSON.parse(fs.readFileSync(deploymentsPath, "utf-8"));
-    const deployedContractNames = Object.keys(deployments);
-    
-    if (deployedContractNames.length === 0) {
-        console.error("❌ No deployments found in deployments.json.");
+    if (!Array.isArray(deployments) || deployments.length === 0) {
+        console.error("❌ No deployments found in deployments.json or the file is in an old format.");
         return;
     }
 
-    const availableContracts = deployedContractNames.map((name, i) => `  ${i}: ${name}`).join('\n');
+    // Display the most recent deployments first for convenience
+    const reversedDeployments = [...deployments].reverse();
 
-    const choiceIndexStr = await ask(`\nWhich contract do you want to verify?\n${availableContracts}\n\nEnter number: `);
+    const availableContracts = reversedDeployments.map((dep, i) =>
+        `  ${i}: ${dep.key} (${dep.address}) deployed at ${new Date(dep.timestamp).toLocaleString()}`
+    ).join('\n');
+
+    const choiceIndexStr = await ask(`\nWhich contract do you want to verify?\n(Most recent are listed first)\n${availableContracts}\n\nEnter number: `);
     const choice = parseInt(choiceIndexStr, 10);
-    
-    if (isNaN(choice) || choice < 0 || choice >= deployedContractNames.length) {
+
+    if (isNaN(choice) || choice < 0 || choice >= reversedDeployments.length) {
         console.error("❌ Invalid selection.");
         return;
     }
 
-    const selectedContractKey = deployedContractNames[choice];
-    const deploymentData = deployments[selectedContractKey];
+    // Select the correct deployment from the reversed list
+    const deploymentData = reversedDeployments[choice];
     const originalLogName = deploymentData.logName;
+    const selectedContractKey = deploymentData.key;
 
     if (!originalLogName) {
-        console.error(`❌ The selected deployment for "${selectedContractKey}" is from an old log and does not contain the required metadata. Please clear deployments and redeploy it.`);
+        console.error(`❌ The selected deployment for "${selectedContractKey}" does not contain the required metadata. Please clear deployments and redeploy it.`);
         return;
     }
-    
+
     console.log(`\n✅ Selected: ${selectedContractKey} (Original logName: ${originalLogName})`);
 
     try {
         const templateConfigPath = path.join(__dirname, '../deployment-config-template.json');
         const templateConfig = JSON.parse(fs.readFileSync(templateConfigPath, 'utf-8'));
         const contractConfig = templateConfig.contracts.find(c => c.logName === originalLogName);
-        
+
         if (!contractConfig) {
              throw new Error(`Contract config for logName "${originalLogName}" not found in template.`);
         }
 
         const contractName = contractConfig.name;
-        const { address: contractAddress } = deploymentData;
-        const resolvedArgs = deploymentData.constructorArgs;
+        const { address: contractAddress, constructorArgs: resolvedArgs } = deploymentData;
 
         if (!resolvedArgs) {
              throw new Error(`Constructor arguments not found for "${selectedContractKey}" in deployments.json. Please clear deployments and redeploy.`);
@@ -75,7 +79,6 @@ async function main() {
         const constructorInputs = artifact.abi.find(item => item.type === "constructor")?.inputs || [];
         const constructorArgTypes = constructorInputs.map(input => input.type);
 
-        // --- NEW LOGIC: Find and extract the Standard JSON Input ---
         console.log(`\n... Locating build info for ${contractName}...`);
         const buildInfoPath = path.join(hre.config.paths.artifacts, 'build-info');
         const buildInfoFiles = fs.readdirSync(buildInfoPath);
@@ -84,7 +87,6 @@ async function main() {
         for (const file of buildInfoFiles) {
             const buildInfo = JSON.parse(fs.readFileSync(path.join(buildInfoPath, file), 'utf8'));
             if (buildInfo.input) {
-                // Check if this build-info contains our contract
                 if (Object.keys(buildInfo.input.sources).some(sourcePath => sourcePath.includes(`/${contractName}.sol`))) {
                     standardJsonInput = buildInfo.input;
                     break;
@@ -95,8 +97,7 @@ async function main() {
         if (!standardJsonInput) {
             throw new Error(`Could not find Standard JSON Input for ${contractName}. Please recompile your contracts.`);
         }
-        // --- END NEW LOGIC ---
-        
+
         const solcConfig = hre.config.solidity.compilers[0];
         const compilerVersion = `v${solcConfig.version}`;
 
@@ -104,8 +105,7 @@ async function main() {
         if (constructorArgTypes.length > 0) {
             abiEncodedConstructorArguments = hre.ethers.utils.defaultAbiCoder.encode(constructorArgTypes, resolvedArgs).slice(2);
         }
-        
-        // Prepare a separate info file, as the explorer might still need the encoded args separately.
+
         const verificationInfo = {
             contractAddress: contractAddress,
             compilerVersion: compilerVersion,
@@ -126,7 +126,6 @@ async function main() {
         console.log(`   - Standard JSON Input: ${standardInputFileName}`);
         console.log(`   - Arguments Info:      ${argsFileName}`);
 
-        // --- UPDATED CONSOLE OUTPUT ---
         const explorerUrl = `https://explorer.helioschainlabs.org/address/${contractAddress}`;
         console.log("\nNext steps for Helios Explorer:");
         console.log(`1. Go to your contract on the explorer: ${explorerUrl}`);
@@ -135,7 +134,6 @@ async function main() {
         console.log(`4. Select Compiler Version: ${compilerVersion}`);
         console.log(`5. Upload the Standard-JSON-Input file: \`verification/${standardInputFileName}\``);
         console.log("6. If prompted for constructor arguments, copy the encoded string from `verification/" + argsFileName + "`.");
-        // --- END UPDATED CONSOLE OUTPUT ---
 
     } catch (error) {
         console.error(`\n❌ An error occurred: ${error.message}`);
