@@ -1,6 +1,6 @@
 # .github/workflows/deploy.yml
 
-name: Scheduled Helios Deployment
+name: Scheduled Helios Deployment & Release
 
 on:
   schedule:
@@ -12,11 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
-      contents: write
+      contents: write # Required to create releases and push commits
 
     env:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       RPC_URL: ${{ secrets.RPC_URL }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -29,12 +30,15 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install undici # Install the HTTP client for the release script
 
       - name: Compile contracts
         run: npx hardhat compile
 
       - name: Run Scheduled Deployment Logic
+        id: deployment
         run: node scripts/run-scheduled-deployment.js
 
       - name: Commit and Push workflow.json
@@ -43,5 +47,14 @@ jobs:
           git config --global user.email "actions@github.com"
           git add workflow.json
           # Only commit if there are changes
-          git diff-index --quiet HEAD || git commit -m "chore(bot): Update workflow deployment logs"
-          git push
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "chore(bot): Update workflow deployment logs"
+            git push
+          else
+            echo "No changes to workflow.json to commit."
+          fi
+      
+      - name: Create GitHub Release
+        # Run this step only if the deployment was successful
+        if: success()
+        run: node scripts/create-release.js
