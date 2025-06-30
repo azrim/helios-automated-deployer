@@ -17,7 +17,7 @@ jobs:
     env:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       RPC_URL: ${{ secrets.RPC_URL }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Pass the token to the env
 
     steps:
       - name: Checkout repository
@@ -30,15 +30,12 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          npm install
-          npm install undici # Install the HTTP client for the release script
+        run: npm install
 
       - name: Compile contracts
         run: npx hardhat compile
 
-      - name: Run Scheduled Deployment Logic
-        id: deployment
+      - name: Run Deployment and Release Script
         run: node scripts/run-scheduled-deployment.js
 
       - name: Commit and Push workflow.json
@@ -53,8 +50,3 @@ jobs:
           else
             echo "No changes to workflow.json to commit."
           fi
-      
-      - name: Create GitHub Release
-        # Run this step only if the deployment was successful
-        if: success()
-        run: node scripts/create-release.js
