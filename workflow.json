@@ -11,5 +11,20 @@
     "blockNumber": 282063,
     "timestamp": "2025-06-30T02:07:00.000Z",
     "key": "FeeCollector"
+  },
+  {
+    "address": "0x0a39716A8a2ec88E3907944430247c89E24f05a0",
+    "logName": "RandomToken",
+    "constructorArgs": [
+      "Nova Token",
+      "NOV",
+      "204016544000000000000000000",
+      "0xe0becc917ec26961bf40ad87650ec0878daf950d"
+    ],
+    "tx": "0x591a343e905e0b78e4d0cf10315a6e49b85647740a41de110d1b5d7ce71afc3c",
+    "explorer": "https://explorer.helioschainlabs.org/tx/0x591a343e905e0b78e4d0cf10315a6e49b85647740a41de110d1b5d7ce71afc3c",
+    "blockNumber": 282076,
+    "timestamp": "2025-06-30T02:10:17.000Z",
+    "key": "Nova Token"
   }
 ]
